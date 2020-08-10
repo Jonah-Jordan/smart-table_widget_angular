@@ -1,7 +1,7 @@
-import {Filter} from '@acpaas-ui/ngx-utils';
-import {OrderBy, TableColumnFormat} from '@acpaas-ui/ngx-table';
-import {Component} from '@angular/core';
-import {LocalStorageType} from '@acpaas-ui/ngx-localstorage';
+import { Filter } from "@acpaas-ui/ngx-utils";
+import { OrderBy, TableColumnFormat } from "@acpaas-ui/ngx-table";
+import { Component } from "@angular/core";
+import { LocalStorageType } from "@acpaas-ui/ngx-localstorage";
 
 export interface IModuleConfig {
   storageType?: LocalStorageType;
@@ -52,6 +52,8 @@ export interface SmartTableOptions {
   storageIdentifier?: string;
   persistTableConfig?: boolean;
   translations?: SmartTableTranslationsConfig;
+  page?: number;
+  showOptionalFilters?: boolean;
 }
 
 export interface SmartTableColumnConfig {
@@ -65,10 +67,10 @@ export interface SmartTableColumnConfig {
 }
 
 export enum SmartTableColumnType {
-  Number = 'number',
-  Text = 'text',
-  Date = 'date',
-  DateTime = 'dateTime'
+  Number = "number",
+  Text = "text",
+  Date = "date",
+  DateTime = "dateTime",
 }
 
 export interface SmartTableColumnCustomType {
@@ -78,20 +80,20 @@ export interface SmartTableColumnCustomType {
 }
 
 export enum SmartTableFilterType {
-  Select = 'select',
-  Input = 'input',
-  Datepicker = 'datepicker',
+  Select = "select",
+  Input = "input",
+  Datepicker = "datepicker",
 }
 
 export enum SmartTableFilterDisplay {
-  Generic = 'generic',
-  Visible = 'visible',
-  Optional = 'optional'
+  Generic = "generic",
+  Visible = "visible",
+  Optional = "optional",
 }
 
 export enum SmartTableFilterOperator {
-  Equal = '=',
-  ILike = 'ILIKE'
+  Equal = "=",
+  ILike = "ILIKE",
 }
 
 export interface SmartTableFilterConfig {
@@ -102,9 +104,9 @@ export interface SmartTableFilterConfig {
   operator?: SmartTableFilterOperator;
   display: SmartTableFilterDisplay;
   label: string;
-  options?: any[];            // Currently applies only to filters of type 'Select'
+  options?: any[]; // Currently applies only to filters of type 'Select'
   placeholder?: string;
-  value: string | any[];      // See ACPaaS Filter class
+  value: string | any[]; // See ACPaaS Filter class
 }
 
 export class SmartTableFilter extends Filter {
@@ -118,7 +120,7 @@ export class SmartTableFilter extends Filter {
 
 export interface UpdateFilterArgs {
   filter: SmartTableFilter;
-  value: string | any[];      // See ACPaaS Filter class
+  value: string | any[]; // See ACPaaS Filter class
 }
 
 export interface SmartTableDataQuery {
