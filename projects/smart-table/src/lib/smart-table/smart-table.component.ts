@@ -273,7 +273,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
         ).pipe(startWith([]), shareReplay(1));
 
         // Helper so not to have duplicate code
-        const onFilter = (filters: Observable<SmartTableFilter[]>) =>
+        const onFilter = (filters: Observable<SmartTableFilter[]>, visible: boolean) =>
             this.onFilter$.pipe(
                 switchMap((event: UpdateFilterArgs) =>
                     filters.pipe(
@@ -292,8 +292,11 @@ export class SmartTableComponent implements OnInit, OnDestroy {
                                         value: smartTableFilter.value
                                     };
                                 });
-
-                            this.addToLocalStorage(this.localStorageId, 'filterValues', smartTableFilterValues);
+                            this.addToLocalStorage(
+                                this.localStorageId,
+                                `${visible ? 'visibleFilterValues' : 'optionalFilterValues'}`,
+                                smartTableFilterValues
+                            );
                             return list;
                         })
                     )
@@ -307,7 +310,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
             startWith([]),
             shareReplay(1)
         );
-        this.optionalFilters$ = merge(this.optionalFilters$, onFilter(this.optionalFilters$));
+        this.optionalFilters$ = merge(this.optionalFilters$, onFilter(this.optionalFilters$, false));
 
         this.visibleFilters$ = this.configuration$.pipe(
             filter((config: SmartTableConfig) => !!config && Array.isArray(config.filters) && config.filters.length > 0),
@@ -315,7 +318,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
             startWith([]),
             shareReplay(1)
         );
-        this.visibleFilters$ = merge(this.visibleFilters$, onFilter(this.visibleFilters$));
+        this.visibleFilters$ = merge(this.visibleFilters$, onFilter(this.visibleFilters$, true));
 
         this.genericFilter$ = this.configuration$.pipe(
             map((config: SmartTableConfig) => config.filters.find((f) => f.display === SmartTableFilterDisplay.Generic)),
@@ -501,8 +504,8 @@ export class SmartTableComponent implements OnInit, OnDestroy {
 
             // Filters
             try {
-                if ('filterValues' in parsed) {
-                    const filterValues: { id: string; value: string }[] = parsed.filterValues;
+                if ('optionalFilterValues' in parsed || 'visibleFilterValues' in parsed) {
+                    const filterValues: { id: string; value: string }[] = [...parsed.optionalFilterValues, ...parsed.visibleFilterValues];
 
                     const mappedIds = filterValues.map((fv) => fv.id);
 

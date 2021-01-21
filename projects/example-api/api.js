@@ -82,12 +82,45 @@ app.get("/api/movies/config", (req, res) => {
     ],
     filters: [
       {
-        id: "smartfilter",
-        display: "generic",
-        type: "input",
-        label: "Zoek een film",
-        placeholder: "Zoek op titel, jaar, ...",
-        fields: ["movie_title", "director_name", "title_year"],
+        id: "projectFilter",
+        label: "Projectfilter",
+        display: "visible",
+        type: "select",
+        field: "projectFilter",
+        operator: "equals",
+        options: [
+          {
+            id: "ALL",
+            label: "Alle projecten",
+            value: "ALL",
+          },
+          {
+            id: "MINE",
+            label: "Mijn projecten",
+            value: "MINE",
+          },
+          {
+            id: "MINE_ACTIVE",
+            label: "Mijn actieve projecten",
+            value: "MINE_ACTIVE",
+          },
+          {
+            id: "B",
+            label: "Bouwproject",
+            value: "B",
+          },
+          {
+            id: "BPS",
+            label: "Bouwproject Stad",
+            value: "BPS",
+          },
+          {
+            id: "SPR",
+            label: "Stadsproject",
+            value: "SPR",
+          },
+        ],
+        value: "MINE_ACTIVE",
       },
       {
         id: "title",
@@ -96,23 +129,23 @@ app.get("/api/movies/config", (req, res) => {
         label: "Titel",
         field: "movie_title",
       },
-      {
-        id: "director",
-        display: "optional",
-        type: "input",
-        label: "Regisseur",
-        field: "director_name",
-      },
-      {
-        id: "status",
-        display: "optional",
-        type: "select",
-        operator: "equals",
-        label: "Status",
-        field: "status",
-        options: [],
-        placeholder: "Alle statussen",
-      },
+      // {
+      //   id: "director",
+      //   display: "optional",
+      //   type: "input",
+      //   label: "Regisseur",
+      //   field: "director_name",
+      // },
+      // {
+      //   id: "status",
+      //   display: "optional",
+      //   type: "select",
+      //   operator: "equals",
+      //   label: "Status",
+      //   field: "status",
+      //   options: [],
+      //   placeholder: "Alle statussen",
+      // },
     ],
     options: {
       defaultSortOrder: {
