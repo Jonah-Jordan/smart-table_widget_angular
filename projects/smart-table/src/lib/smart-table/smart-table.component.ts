@@ -591,6 +591,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
         if (SMARTTABLE_DEFAULT_OPTIONS.resetSortOrderOnFilter) {
             this.resetOrderBy();
         }
+        this.onPageChanged(1);
         this.onFilter$.next(value);
     }
 

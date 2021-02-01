@@ -19,10 +19,10 @@ export class AppComponent {
 
   customConfiguration: SmartTableConfig = {
     options: {
-      // defaultSortOrder: {
-      //   key: 'title_year',
-      //   order: 'desc'
-      // },
+      defaultSortOrder: {
+        key: "title_year",
+        order: "desc",
+      },
       persistTableConfig: true,
       storageIdentifier: "test-smart-table",
       translations: {
