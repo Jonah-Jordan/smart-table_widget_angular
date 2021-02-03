@@ -345,7 +345,6 @@ export class SmartTableComponent implements OnInit, OnDestroy {
                     OrderBy,
                     boolean
                 ]) => {
-                    debugger;
                     if (!this.optionalFiltersVisible) {
                         optionalFilters.forEach((f) => (f.value = undefined));
                     }
