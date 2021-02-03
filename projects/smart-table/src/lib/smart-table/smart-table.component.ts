@@ -1,9 +1,13 @@
-import { OrderBy, TableColumn } from '@acpaas-ui/ngx-table';
-import { LocalstorageService } from '@acpaas-ui/ngx-localstorage';
 import { FlyoutService } from '@acpaas-ui/ngx-flyout';
+import { LocalstorageService } from '@acpaas-ui/ngx-localstorage';
+import { OrderBy, TableColumn } from '@acpaas-ui/ngx-table';
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { BehaviorSubject, combineLatest, concat, merge, Observable, of, Subject } from 'rxjs';
+import { auditTime, catchError, filter, first, map, shareReplay, skip, startWith, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { PROVIDE_ID } from '../indentifier.provider';
+import { TableFactory } from '../services/table.factory';
 import { SMARTTABLE_DEFAULT_OPTIONS } from './smart-table.defaults';
 import { SmartTableService } from './smart-table.service';
 import {
@@ -19,25 +23,6 @@ import {
     SmartTableFilterType,
     UpdateFilterArgs
 } from './smart-table.types';
-import {
-    auditTime,
-    catchError,
-    filter,
-    first,
-    map,
-    shareReplay,
-    skip,
-    startWith,
-    switchMap,
-    take,
-    takeUntil,
-    tap,
-    debounceTime,
-    distinctUntilChanged
-} from 'rxjs/operators';
-import { PROVIDE_ID } from '../indentifier.provider';
-import { BehaviorSubject, combineLatest, concat, merge, Observable, of, Subject } from 'rxjs';
-import { TableFactory } from '../services/table.factory';
 
 @Component({
     selector: 'aui-smart-table',
@@ -63,6 +48,8 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     visibleFilters$: Observable<SmartTableFilter[]>;
     /** @internal */
     optionalFilters$: Observable<SmartTableFilter[]>;
+    private cleanOptionalFilters$ = new BehaviorSubject<boolean>(false);
+
     /** @internal Whether the optional filters are currently visible (if any exist) */
     optionalFiltersVisible = false;
     /** @internal */
@@ -337,6 +324,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
             shareReplay(1)
         );
 
+        var trigger;
         // Build up the data query based on the different filters
         // A new data query will be created every time that new filters come in
         this.dataQuery$ = combineLatest(
@@ -344,17 +332,24 @@ export class SmartTableComponent implements OnInit, OnDestroy {
             this.optionalFilters$,
             this.genericFilter$,
             this.configuration$,
-            this.orderBy$
+            this.orderBy$,
+            this.cleanOptionalFilters$
         ).pipe(
             skip(5), // The values are shared replayed, so skip the 5 initial emits of the observables
             map(
-                ([visibleFilters, optionalFilters, genericFilter, configuration, orderBy]: [
+                ([visibleFilters, optionalFilters, genericFilter, configuration, orderBy, cleanFilters]: [
                     SmartTableFilter[],
                     SmartTableFilter[],
                     SmartTableFilter,
                     SmartTableConfig,
-                    OrderBy
+                    OrderBy,
+                    boolean
                 ]) => {
+                    debugger;
+                    if (!this.optionalFiltersVisible) {
+                        optionalFilters.forEach((f) => (f.value = undefined));
+                    }
+
                     const filters = [
                         ...configuration.baseFilters,
                         ...this.createDataQueryFilters(visibleFilters),
@@ -604,6 +599,10 @@ export class SmartTableComponent implements OnInit, OnDestroy {
         this.optionalFiltersVisible = !this.optionalFiltersVisible;
         if (this.persistInStorage) {
             this.addToLocalStorage(this.localStorageId, 'optionalFiltersVisible', this.optionalFiltersVisible);
+        }
+
+        if (!this.optionalFiltersVisible) {
+            this.cleanOptionalFilters$.next(true);
         }
     }
 
