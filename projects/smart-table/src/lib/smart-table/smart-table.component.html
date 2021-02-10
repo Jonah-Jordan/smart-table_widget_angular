@@ -112,6 +112,15 @@
                     ></aui-table-select-filter>
                 </ng-container>
 
+                <ng-container *ngSwitchCase="'multi-select'">
+                    <aui-table-multi-select-filter
+                        class="aui-smart-table__filter"
+                        [filter]="filter"
+                        [optional]="true"
+                        (update)="onFilter($event)"
+                    ></aui-table-multi-select-filter>
+                </ng-container>
+
                 <ng-container *ngSwitchCase="'input'">
                     <aui-table-input-filter
                         class="aui-smart-table__filter"

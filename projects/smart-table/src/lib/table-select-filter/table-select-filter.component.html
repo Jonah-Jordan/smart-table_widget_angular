@@ -9,8 +9,9 @@
                     [defaultSelected]="filter.placeholder"
                     [hidden]="!filter.placeholder"
                     [attr.aria-hidden]="!filter.placeholder"
-                    >{{ filter.placeholder }}</option
                 >
+                    {{ filter.placeholder }}
+                </option>
                 <option *ngFor="let option of filter.options" [value]="option.id">{{ option.label }}</option>
             </select>
             <span class="fa fa-angle-down"></span>

@@ -1,148 +1,149 @@
 @import '~@a-ui/core/dist/assets/styles/_quarks';
 
-$loading-overlay-color: rgba($white, .75);
+$loading-overlay-color: rgba($white, 0.75);
 
 .aui-smart-table {
-  .a-toggle-filters {
-    > .fa {
-      transition: transform $animation-duration $animation-easing;
+    .a-toggle-filters {
+        > .fa {
+            transition: transform $animation-duration $animation-easing;
 
-      &.is-toggled {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  &__filters {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: -$spacer-xs; // Make up for separate filters
-
-    &--visible {
-      flex-direction: row-reverse;
+            &.is-toggled {
+                transform: rotate(180deg);
+            }
+        }
     }
 
-    &--toggle {
-      margin-top: $spacer-xs;
-      max-height: 0;
-      transition: max-height $animation-duration $animation-easing;
-      overflow: hidden;
+    &__filters {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: -$spacer-xs; // Make up for separate filters
 
-      @include at($screen-xs) {
-        margin-right: -$spacer-xs;
-      }
+        &--visible {
+            flex-direction: row-reverse;
+        }
 
-      &.is-visible {
-        max-height: 75em;
-        overflow: visible;
-      }
+        &--toggle {
+            margin-top: $spacer-xs;
+            max-height: 0;
+            transition: max-height $animation-duration $animation-easing;
+            overflow: hidden;
+
+            @include at($screen-xs) {
+                margin-right: -$spacer-xs;
+            }
+
+            &.is-visible {
+                max-height: 75em;
+                overflow: visible;
+            }
+        }
+
+        &--left,
+        &--right {
+            align-items: flex-end;
+            display: flex;
+            flex: 1 1 auto;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        &--right {
+            justify-content: flex-end;
+        }
     }
 
-    &--left,
-    &--right {
-      align-items: flex-end;
-      display: flex;
-      flex: 1 1 auto;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-
-    &--right {
-      justify-content: flex-end;
-    }
-  }
-
-  /**
+    /**
    * Hidden overflow of the filters results in focus borders being chopped off.
    * This trick fixes the problem.
    */
-  &__overflow {
-    margin: 0 -$spacer-xs / 4;
+    &__overflow {
+        margin: 0 -$spacer-xs / 4;
 
-    > .aui-smart-table__filters {
-      padding: 0 $spacer-xs / 4;
-    }
-  }
-
-  &__button {
-    margin-bottom: $spacer-xs;
-  }
-
-  &__filter {
-    margin-bottom: $spacer-xs;
-
-    @include at($screen-xs) {
-      &:first-child,
-      + .aui-smart-table__filter {
-        margin-right: $spacer-xs;
-      }
-    }
-  }
-
-  &__loading-overlay {
-    align-items: center;
-    background-color: $loading-overlay-color;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: layer('base');
-  }
-
-  &__wrapper {
-    display: block;
-    position: relative;
-  }
-
-  &__actions {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-
-    @include at($screen-md) {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-
-    &--left {
-      @include at($screen-sm) {
-        display: flex;
-        margin-bottom: $spacer-xs;
-      }
-      @include at($screen-md) {
-        margin-bottom: 0;
-      }
-
-      > * {
-        justify-content: center;
-        text-align: center;
-
-        @include at($screen-sm) {
-          &:not(:first-child):before { // Separate all child items
-            content: '|';
-            padding: 0 $spacer-xs;
-          }
+        > .aui-smart-table__filters {
+            padding: 0 $spacer-xs / 4;
         }
-      }
     }
-  }
+
+    &__button {
+        margin-bottom: $spacer-xs;
+    }
+
+    &__filter {
+        margin-bottom: $spacer-xs;
+
+        @include at($screen-xs) {
+            &:first-child,
+            + .aui-smart-table__filter {
+                margin-right: $spacer-xs;
+            }
+        }
+    }
+
+    &__loading-overlay {
+        align-items: center;
+        background-color: $loading-overlay-color;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: layer('base');
+    }
+
+    &__wrapper {
+        display: block;
+        position: relative;
+    }
+
+    &__actions {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+
+        @include at($screen-md) {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        &--left {
+            @include at($screen-sm) {
+                display: flex;
+                margin-bottom: $spacer-xs;
+            }
+            @include at($screen-md) {
+                margin-bottom: 0;
+            }
+
+            > * {
+                justify-content: center;
+                text-align: center;
+
+                @include at($screen-sm) {
+                    &:not(:first-child):before {
+                        // Separate all child items
+                        content: '|';
+                        padding: 0 $spacer-xs;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .u-hide-on-mobile-devices {
-  @include to($screen-xs-max) {
-    display: none;
-    visibility: hidden;
-  }
+    @include to($screen-xs-max) {
+        display: none;
+        visibility: hidden;
+    }
 }
 
 .u-show-on-mobile-devices {
-  @include at($screen-sm) {
-    display: none;
-    visibility: hidden;
-  }
+    @include at($screen-sm) {
+        display: none;
+        visibility: hidden;
+    }
 }
 
 /**
@@ -151,21 +152,21 @@ $loading-overlay-color: rgba($white, .75);
  */
 
 .a-input .a-input__checkbox {
-  text-align: left;
+    text-align: left;
 
-  input {
-    width: auto;
-  }
-
-  label {
-    width: 100%;
-
-    &:after {
-      top: auto;
+    input {
+        width: auto;
     }
-  }
+
+    label {
+        width: 100%;
+
+        &:after {
+            top: auto;
+        }
+    }
 }
 
 .m-flyout {
-  outline: none;
+    outline: none;
 }

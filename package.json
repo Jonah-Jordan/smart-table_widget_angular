@@ -20,6 +20,7 @@
     "@acpaas-ui/ngx-table": "^4.0.0",
     "file-saver": "^2.0.2",
     "lodash.unionby": "^4.8.0",
+    "node-sass": "^4.14.1",
     "query-string": "^6.8.3",
     "xlsx": "^0.15.1"
   },

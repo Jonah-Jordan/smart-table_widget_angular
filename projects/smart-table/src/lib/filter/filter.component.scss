@@ -1,11 +1,10 @@
 @import '~@a-ui/core/dist/assets/styles/_quarks';
 
 :host {
-  flex-grow: 1;
-  flex-basis: 100%;
+    flex-grow: 1;
+    flex-basis: 100%;
 
-  @include at($screen-xs) {
-    flex-basis: auto;
-  }
+    @include at($screen-xs) {
+        flex-basis: auto;
+    }
 }
-

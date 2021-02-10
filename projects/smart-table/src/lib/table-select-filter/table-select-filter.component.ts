@@ -5,7 +5,7 @@ import { AbstractFilter } from '../filter/abstract-filter';
 @Component({
     selector: 'aui-table-select-filter',
     templateUrl: './table-select-filter.component.html',
-    styleUrls: ['../filter/filter.component.scss'],
+    styleUrls: ['../filter/filter.component.scss']
 })
 export class TableSelectFilterComponent extends AbstractFilter implements OnInit, AfterViewInit, FilterComponent {
     public ngOnInit() {}
@@ -14,7 +14,7 @@ export class TableSelectFilterComponent extends AbstractFilter implements OnInit
         try {
             if (this.filter && typeof this.filter.value === 'string') {
                 const foundOption = this.filter.options.find(
-                    (option) => option.id.toLowerCase() === (this.filter.value as string).toLowerCase(),
+                    (option) => option.id.toLowerCase() === (this.filter.value as string).toLowerCase()
                 );
                 if (foundOption) {
                     this.formControl.setValue(foundOption.id);

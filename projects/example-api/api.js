@@ -110,8 +110,28 @@ app.get("/api/movies/config", (req, res) => {
         options: GENRES.split("|").map((v) => ({ id: v, label: v })),
         label: "Genre",
         field: "genres",
-        placeholder: "All Genres",
+        placeholder: "Alle Genres",
       },
+      {
+        id: "director",
+        display: "optional",
+        type: "multi-select",
+        options: [{
+          "id": "Zack Snyder",
+          "label": "Zack Snyder",
+        },
+        {
+          "id": "Anthony Russo",
+          "label": "Anthony Russo",
+        },
+        {
+          "id": "Justin Lin",
+          "label": "Justin Lin",
+        }],
+        label: "Regisseurs",
+        field: "director_name",
+      },
+      
     ],
     options: {
       defaultSortOrder: {
@@ -133,9 +153,22 @@ function getDataFromRequest(req) {
 
   let response = movies.slice();
 
+  var patternList = [];
   // apply filtering
   if (body.filters && body.filters.length) {
     body.filters.forEach((filter) => {
+      if(Array.isArray(filter.value)){
+      filter.value.forEach((value) => {
+      patternList.push(value);
+      });
+      response = response.filter((value) => {
+        let include = false;
+        filter.fields.forEach((field) => {
+          if (patternList.includes(value[field])) include = true;
+        });
+        return include;
+      });
+    } else {
       const matchOn =
         filter.value && filter.value.id
           ? filter.value.id
@@ -151,7 +184,8 @@ function getDataFromRequest(req) {
         });
         return include;
       });
-    });
+    }
+  });
   }
 
   // apply sorting
