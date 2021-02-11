@@ -544,7 +544,9 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     }
 
     createDataQueryFilters(filters: SmartTableFilter[]): SmartTableDataQueryFilter[] {
-        return filters.filter((f) => f && f.value).map(this.createDataQueryFilter);
+        return filters
+            .filter((f) => (f && f.value && f.value !== f.placeholder) || (Array.isArray(f.value) && f.value.length > 0))
+            .map(this.createDataQueryFilter);
     }
 
     createDataQueryFilter(f: SmartTableFilter): SmartTableDataQueryFilter {
@@ -552,9 +554,10 @@ export class SmartTableComponent implements OnInit, OnDestroy {
             return {
                 fields: f.fields,
                 operator: f.operator,
-                value: f.operator === SmartTableFilterOperator.ILike ? `%${f.value}%` : f.value
+                value: f.operator === SmartTableFilterOperator.ILike ? [`%${f.value}%`] : Array.isArray(f.value) ? f.value : [f.value]
             };
         }
+        return;
     }
 
     public onPageChanged(page) {

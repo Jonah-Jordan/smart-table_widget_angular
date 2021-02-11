@@ -1,13 +1,18 @@
 <ng-container *ngIf="filter">
-  <div class="a-input aui-input-filter regular"
-       [ngClass]="{'a-input--small optional': optional, 'has-icon-right': !optional}">
-    <label class="a-input__label" [for]="id">
-      {{ filter.label }}
-    </label>
-    <div class="a-input__wrapper">
-      <input type="text" [id]="id" name="filter-{{ filter.id }}" [placeholder]="filter.placeholder || ''"
-             [formControl]="formControl" ngDefaultControl>
-      <span class="fa fa-search" *ngIf="!optional"></span>
+    <div class="a-input aui-input-filter regular" [ngClass]="{ 'a-input--small optional': optional, 'has-icon-right': !optional }">
+        <label class="a-input__label" [for]="id">
+            {{ filter.label }}
+        </label>
+        <div class="a-input__wrapper">
+            <input
+                type="text"
+                [id]="id"
+                name="filter-{{ filter.id }}"
+                [placeholder]="filter.placeholder || ''"
+                [formControl]="formControl"
+                ngDefaultControl
+            />
+            <span class="fa fa-search" *ngIf="!optional"></span>
+        </div>
     </div>
-  </div>
 </ng-container>

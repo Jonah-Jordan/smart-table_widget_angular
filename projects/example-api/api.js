@@ -113,25 +113,26 @@ app.get("/api/movies/config", (req, res) => {
         placeholder: "Alle Genres",
       },
       {
-        id: "director",
+        id: "director-select",
         display: "optional",
         type: "multi-select",
-        options: [{
-          "id": "Zack Snyder",
-          "label": "Zack Snyder",
-        },
-        {
-          "id": "Anthony Russo",
-          "label": "Anthony Russo",
-        },
-        {
-          "id": "Justin Lin",
-          "label": "Justin Lin",
-        }],
+        options: [
+          {
+            id: "Zack Snyder",
+            label: "Zack Snyder",
+          },
+          {
+            id: "Anthony Russo",
+            label: "Anthony Russo",
+          },
+          {
+            id: "Justin Lin",
+            label: "Justin Lin",
+          },
+        ],
         label: "Regisseurs",
         field: "director_name",
       },
-      
     ],
     options: {
       defaultSortOrder: {
@@ -157,35 +158,35 @@ function getDataFromRequest(req) {
   // apply filtering
   if (body.filters && body.filters.length) {
     body.filters.forEach((filter) => {
-      if(Array.isArray(filter.value)){
-      filter.value.forEach((value) => {
-      patternList.push(value);
-      });
-      response = response.filter((value) => {
-        let include = false;
-        filter.fields.forEach((field) => {
-          if (patternList.includes(value[field])) include = true;
+      if (Array.isArray(filter.value)) {
+        filter.value.forEach((value) => {
+          patternList.push(value);
         });
-        return include;
-      });
-    } else {
-      const matchOn =
-        filter.value && filter.value.id
-          ? filter.value.id
-          : filter.value
-              .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
-              .replace(/[%*]/g, ".*");
-      const pattern = new RegExp(matchOn, "i");
-      response = response.filter((value) => {
-        let include = false;
-        filter.fields.forEach((field) => {
-          const str = "" + value[field];
-          if (str.match(pattern)) include = true;
+        response = response.filter((value) => {
+          let include = false;
+          filter.fields.forEach((field) => {
+            if (patternList.includes(value[field])) include = true;
+          });
+          return include;
         });
-        return include;
-      });
-    }
-  });
+      } else {
+        const matchOn =
+          filter.value && filter.value.id
+            ? filter.value.id
+            : filter.value
+                .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
+                .replace(/[%*]/g, ".*");
+        const pattern = new RegExp(matchOn, "i");
+        response = response.filter((value) => {
+          let include = false;
+          filter.fields.forEach((field) => {
+            const str = "" + value[field];
+            if (str.match(pattern)) include = true;
+          });
+          return include;
+        });
+      }
+    });
   }
 
   // apply sorting

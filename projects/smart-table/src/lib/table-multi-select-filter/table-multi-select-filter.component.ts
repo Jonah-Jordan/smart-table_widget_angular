@@ -8,7 +8,8 @@ import { AbstractFilter } from '../filter/abstract-filter';
     styleUrls: ['./table-multi-select-filter.component.scss']
 })
 export class TableMultiSelectFilterComponent extends AbstractFilter implements OnInit, AfterViewInit, FilterComponent {
-    ngOnInit() {}
+    public totalSelected = 0;
+    ngOnInit(): void {}
 
     ngAfterViewInit(): void {
         try {

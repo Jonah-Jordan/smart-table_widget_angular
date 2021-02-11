@@ -2,10 +2,21 @@
     <div class="a-input has-icon-right aui-select-filter" [ngClass]="{ 'a-input--small optional': optional }">
         <label class="a-input__label" [for]="id">{{ filter.label }}</label>
         <div class="a-input__wrapper a-input--filter">
-            <ng-select [id]="id" [multiple]="true" [formControl]="formControl" ngDefaultControl>
+            <ng-select
+                (add)="totalSelected = totalSelected + 1"
+                (remove)="totalSelected = totalSelected - 1"
+                [id]="id"
+                [multiple]="true"
+                [formControl]="formControl"
+                [closeOnSelect]="false"
+                ngDefaultControl
+            >
+                <ng-template ng-multi-label-tmp> </ng-template>
+
                 <ng-option *ngFor="let option of filter.options" [value]="option.id">{{ option.label }}</ng-option>
             </ng-select>
             <span class="fa fa-angle-down"></span>
         </div>
     </div>
+    <small class="extra-info-selected">{{ totalSelected }} {{ filter.label.toLowerCase() }} geselecteerd</small>
 </ng-container>

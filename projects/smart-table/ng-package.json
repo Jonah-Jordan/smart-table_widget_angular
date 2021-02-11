@@ -1,15 +1,16 @@
 {
-  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/smart-table",
-  "lib": {
-    "entryFile": "src/public-api.ts"
-  },
-  "whitelistedNonPeerDependencies": [
-    "@acpaas-ui",
-    "file-saver",
-    "lodash.unionby",
-    "query-string",
-    "xlsx",
-    "@acpaas-ui"
-  ]
+    "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+    "dest": "../../dist/smart-table",
+    "lib": {
+        "entryFile": "src/public-api.ts"
+    },
+    "whitelistedNonPeerDependencies": [
+        "@acpaas-ui",
+        "file-saver",
+        "lodash.unionby",
+        "query-string",
+        "xlsx",
+        "@acpaas-ui",
+        "@ng-select/ng-select"
+    ]
 }

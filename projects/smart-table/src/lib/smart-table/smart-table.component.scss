@@ -170,3 +170,7 @@ $loading-overlay-color: rgba($white, 0.75);
 .m-flyout {
     outline: none;
 }
+
+.aui-smart-table__filter {
+    flex-grow: 1;
+}
