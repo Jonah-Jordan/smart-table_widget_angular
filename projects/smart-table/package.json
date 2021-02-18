@@ -1,6 +1,6 @@
 {
     "name": "@dgpls-pmp/acpaas-ui-ngx-smart-table",
-    "version": "1.0.16",
+    "version": "2.0.1",
     "license": "MIT",
     "homepage": "https://github.com/digipolisantwerp/smart-table_widget_angular#readme",
     "peerDependencies": {
@@ -15,7 +15,7 @@
         "@acpaas-ui/ngx-localstorage": "^4.1.0",
         "@acpaas-ui/ngx-pagination": "^4.0.0",
         "@acpaas-ui/ngx-table": "^4.0.0",
-        "@ng-select/ng-select": "^2.20.5",
+        "@ng-select/ng-select": "^4.0.4",
         "file-saver": "^2.0.2",
         "lodash.unionby": "^4.8.0",
         "query-string": "^6.8.3",

@@ -1,5 +1,5 @@
 import { FilterComponent } from '@acpaas-ui/ngx-utils';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractFilter } from '../filter/abstract-filter';
 
 @Component({
@@ -9,6 +9,11 @@ import { AbstractFilter } from '../filter/abstract-filter';
 })
 export class TableMultiSelectFilterComponent extends AbstractFilter implements OnInit, AfterViewInit, FilterComponent {
     public totalSelected = 0;
+
+    constructor(private cdRef: ChangeDetectorRef) {
+        super();
+    }
+
     ngOnInit(): void {}
 
     ngAfterViewInit(): void {
@@ -20,7 +25,9 @@ export class TableMultiSelectFilterComponent extends AbstractFilter implements O
                     foundOptions.push(foundOption.id);
                 });
                 if (foundOptions) {
-                    this.formControl.setValue(foundOptions);
+                    this.formControl.patchValue(foundOptions);
+                    this.totalSelected = foundOptions.length;
+                    this.cdRef.detectChanges();
                 }
             }
         } catch (err) {

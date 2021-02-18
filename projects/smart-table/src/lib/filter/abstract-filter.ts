@@ -1,10 +1,11 @@
-import {EventEmitter, Input, OnDestroy, Output} from '@angular/core';
+import { EventEmitter, Input, OnDestroy, Output, Directive } from '@angular/core';
 import {SmartTableFilter, UpdateFilterArgs} from '../smart-table/smart-table.types';
 import {FormControl} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {debounceTime, takeUntil, tap} from 'rxjs/operators';
 import * as _ from 'lodash';
 
+@Directive()
 export abstract class AbstractFilter implements OnDestroy {
   @Input() filter: SmartTableFilter;
   @Input() optional = false;

@@ -499,7 +499,9 @@ export class SmartTableComponent implements OnInit, OnDestroy {
             // Filters
             try {
                 if ('optionalFilterValues' in parsed || 'visibleFilterValues' in parsed) {
-                    const filterValues: { id: string; value: string }[] = [...parsed.optionalFilterValues, ...parsed.visibleFilterValues];
+                    const filterValues: { id: string; value: string[] }[] = [];
+                    parsed.optionalFilterValues ? filterValues.push(...parsed.optionalFilterValues) : null;
+                    parsed.visibleFilterValues ? filterValues.push(...parsed.visibleFilterValues) : null;
 
                     const mappedIds = filterValues.map((fv) => fv.id);
 
@@ -545,7 +547,10 @@ export class SmartTableComponent implements OnInit, OnDestroy {
 
     createDataQueryFilters(filters: SmartTableFilter[]): SmartTableDataQueryFilter[] {
         return filters
-            .filter((f) => (f && f.value && f.value !== f.placeholder) || (Array.isArray(f.value) && f.value.length > 0))
+            .filter(
+                (f) =>
+                    (f && f.value && f.value !== f.placeholder && !Array.isArray(f.value)) || (Array.isArray(f.value) && f.value.length > 0)
+            )
             .map(this.createDataQueryFilter);
     }
 

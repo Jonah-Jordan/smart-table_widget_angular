@@ -48,7 +48,7 @@ const defaultConfiguration: IModuleConfig = {
     exports: [SmartTableComponent, ...components]
 })
 export class SmartTableModule {
-    static forRoot(localstorageConfig: IModuleConfig = defaultConfiguration): ModuleWithProviders {
+    static forRoot(localstorageConfig: IModuleConfig = defaultConfiguration): ModuleWithProviders<SmartTableModule> {
         return {
             ngModule: SmartTableModule,
             providers: [
