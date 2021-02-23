@@ -33,6 +33,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     @Input() apiUrl: string;
     @Input() httpHeaders: HttpHeaders;
     @Input() columnTypes: SmartTableColumnCustomType[] = [];
+    @Input() showTags: boolean;
 
     @Input()
     set configuration(value: SmartTableConfig) {

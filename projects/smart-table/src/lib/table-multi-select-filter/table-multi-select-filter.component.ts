@@ -1,5 +1,5 @@
 import { FilterComponent } from '@acpaas-ui/ngx-utils';
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { AbstractFilter } from '../filter/abstract-filter';
 
 @Component({
@@ -8,6 +8,7 @@ import { AbstractFilter } from '../filter/abstract-filter';
     styleUrls: ['./table-multi-select-filter.component.scss']
 })
 export class TableMultiSelectFilterComponent extends AbstractFilter implements OnInit, AfterViewInit, FilterComponent {
+    @Input() public showTags: boolean;
     public totalSelected = 0;
 
     constructor(private cdRef: ChangeDetectorRef) {
@@ -34,5 +35,11 @@ export class TableMultiSelectFilterComponent extends AbstractFilter implements O
             console.error(err);
             console.warn('Warning: could not set select filter value.');
         }
+    }
+
+    removeFilterOptions(value: string) {
+        this.formControl.value.splice(this.formControl.value.indexOf(value), 1);
+        this.formControl.patchValue(this.formControl.value);
+        this.totalSelected = this.totalSelected - 1;
     }
 }

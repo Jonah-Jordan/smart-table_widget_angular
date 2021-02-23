@@ -3,20 +3,35 @@
         <label class="a-input__label" [for]="id">{{ filter.label }}</label>
         <div class="a-input__wrapper a-input--filter">
             <ng-select
+                class="u-margin-bottom-xs"
                 (add)="totalSelected = totalSelected + 1"
                 (remove)="totalSelected = totalSelected - 1"
                 [id]="id"
                 [multiple]="true"
                 [formControl]="formControl"
                 [closeOnSelect]="false"
+                placeholder="0 geselecteerd"
                 ngDefaultControl
             >
-                <ng-template ng-multi-label-tmp> </ng-template>
+                <ng-template ng-multi-label-tmp>
+                    <span style="display: block" class="ng-placeholder">{{ totalSelected }} geselecteerd</span></ng-template
+                >
 
                 <ng-option *ngFor="let option of filter.options" [value]="option.id">{{ option.label }}</ng-option>
             </ng-select>
             <span class="fa fa-angle-down"></span>
         </div>
     </div>
-    <small class="extra-info-selected">{{ totalSelected }} {{ filter.label.toLowerCase() }} geselecteerd</small>
+    <div *ngIf="showTags">
+        <div class="m-tag u-margin-right-xs u-margin-bottom-xs" *ngFor="let value of formControl.value">
+            <span class="m-tag__label">{{ value }}</span>
+            <button
+                class="a-button-transparent a-button--small a-button--danger has-icon"
+                aria-label="Delete"
+                (click)="removeFilterOptions(value)"
+            >
+                <span class="fa fa-close" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
 </ng-container>

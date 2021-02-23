@@ -18,6 +18,7 @@
     "@acpaas-ui/ngx-localstorage": "^4.1.0",
     "@acpaas-ui/ngx-pagination": "^4.0.0",
     "@acpaas-ui/ngx-table": "^4.0.0",
+    "@ng-select/ng-select": "^6.1.0",
     "file-saver": "^2.0.2",
     "lodash.unionby": "^4.8.0",
     "node-sass": "^4.14.1",
