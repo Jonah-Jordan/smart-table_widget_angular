@@ -24,7 +24,7 @@
     </div>
     <div *ngIf="showTags">
         <div class="m-tag u-margin-right-xs u-margin-bottom-xs" *ngFor="let value of formControl.value">
-            <span class="m-tag__label">{{ value }}</span>
+            <span class="m-tag__label">{{ searchCorrectLabel(value) }}</span>
             <button
                 class="a-button-transparent a-button--small a-button--danger has-icon"
                 aria-label="Delete"

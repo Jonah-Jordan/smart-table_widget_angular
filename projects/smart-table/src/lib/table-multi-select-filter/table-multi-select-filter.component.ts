@@ -42,4 +42,8 @@ export class TableMultiSelectFilterComponent extends AbstractFilter implements O
         this.formControl.patchValue(this.formControl.value);
         this.totalSelected = this.totalSelected - 1;
     }
+
+    searchCorrectLabel(value: string): string {
+        return this.filter.options.find((o) => o.id === value).label;
+    }
 }
