@@ -1,5 +1,6 @@
 import { FilterComponent } from '@acpaas-ui/ngx-utils';
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { AbstractFilter } from '../filter/abstract-filter';
 
 @Component({
@@ -45,5 +46,11 @@ export class TableMultiSelectFilterComponent extends AbstractFilter implements O
 
     searchCorrectLabel(value: string): string {
         return this.filter.options.find((o) => o.id === value).label;
+    }
+
+    public removeAllSelectedValues(filter: FormControl): void {
+        filter.value.splice(0, filter.value.length);
+        filter.patchValue(filter.value);
+        this.totalSelected = 0;
     }
 }
