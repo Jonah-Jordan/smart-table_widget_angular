@@ -621,7 +621,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
                 first(),
                 switchMap((dataQuery) => this.dataService.getAllData(this.apiUrl, this.httpHeaders, dataQuery)),
                 switchMap((data) => this.filterOutColumns(data._embedded.resourceList)),
-                tap((exportData) => this.dataService.exportAsExcelFile(exportData, 'smart-table')),
+                tap((exportData) => this.dataService.exportAsExcelFile(exportData, 'ProjectoverzichtPMP')),
                 tap(() => (this.pageChanging = false)),
                 first()
             )
@@ -634,13 +634,17 @@ export class SmartTableComponent implements OnInit, OnDestroy {
 
     private filterOutColumns(data): Observable<Array<TableColumn>> {
         return this.allColumns$.pipe(
-            map((cols) => cols.map((c) => c.value)),
-            map((columnKeys) => {
-                return data.map((d) => {
+            map((cols) =>
+                cols.map((c) => {
+                    return { value: c.value, label: c.label };
+                })
+            ),
+            map((columnKeys: { value: string; label: string }[]) => {
+                return data.map((d: any) => {
                     return Object.keys(d)
-                        .filter((key) => columnKeys.indexOf(key) >= 0)
+                        .filter((key) => columnKeys.map((ck) => ck.value).indexOf(key) >= 0)
                         .reduce((acc, key) => {
-                            acc[key] = d[key];
+                            acc[columnKeys.find((p) => p.value === key).label] = d[key];
                             return acc;
                         }, {});
                 });
