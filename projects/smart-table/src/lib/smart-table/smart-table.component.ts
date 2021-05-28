@@ -115,6 +115,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     public instanceId: string = Math.random().toString(36).substr(2, 9);
     private localStorageId: string;
     private persistInStorage: boolean;
+    private currentQuery: SmartTableDataQuery;
 
     constructor(
         private dataService: SmartTableService,
@@ -370,13 +371,14 @@ export class SmartTableComponent implements OnInit, OnDestroy {
                 if (!sortColumn) {
                     return { filters };
                 }
-                return {
+                this.currentQuery = {
                     filters,
                     sort: {
                         path: sortColumn.sortPath,
                         ascending: orderBy.order === 'asc'
                     }
                 };
+                return this.currentQuery;
             }),
             startWith({ filters: [], sort: { path: '', ascending: false } })
         );
@@ -616,10 +618,10 @@ export class SmartTableComponent implements OnInit, OnDestroy {
 
     public exportToExcel() {
         this.pageChanging = true;
-        this.dataQuery$
+
+        this.dataService
+            .getAllData(this.apiUrl, this.httpHeaders, this.currentQuery)
             .pipe(
-                first(),
-                switchMap((dataQuery) => this.dataService.getAllData(this.apiUrl, this.httpHeaders, dataQuery)),
                 switchMap((data) => this.filterOutColumns(data._embedded.resourceList)),
                 tap((exportData) => this.dataService.exportAsExcelFile(exportData, 'ProjectoverzichtPMP')),
                 tap(() => (this.pageChanging = false)),
