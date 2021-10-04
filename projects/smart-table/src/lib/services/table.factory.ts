@@ -6,7 +6,7 @@ import {
   SmartTableFilter,
   SmartTableFilterConfig
 } from '../smart-table/smart-table.types';
-import {TableColumn} from '@acpaas-ui/ngx-table';
+import {ConstructableCell, TableColumn} from '@acpaas-ui/ngx-table';
 import {DatePipe} from '@angular/common';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class TableFactory {
       const columnType = columnTypes.find(ct => ct.name === columnConfig.type);
       if (columnType) {
         column.format = columnType.format;
-        column.component = columnType.component;
+        // column.component = columnType.component;
       } else {
         switch (columnConfig.type) {
           case SmartTableColumnType.DateTime: {

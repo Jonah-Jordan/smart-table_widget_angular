@@ -9,7 +9,7 @@
                         [attr.aria-label]="(configuration$ | async)?.options.translations?.export || 'Exporteer'"
                         [title]="(configuration$ | async)?.options.translations?.export || 'Exporteer'"
                     >
-                        <span class="fa fa-file-o"></span>
+                    <aui-icon name="ai-common-file-text"></aui-icon>
                     </button>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                             [title]="(configuration$ | async)?.options.translations?.openColumnSelector || 'Toon/verberg kolommen'"
                             auiFlyoutAction
                         >
-                            <span class="fa fa-columns"></span>
+                        <aui-icon name="ai-layout-column"></aui-icon>
                         </button>
 
                         <div auiFlyoutZone>
@@ -88,7 +88,8 @@
                         [attr.aria-expanded]="optionalFiltersVisible"
                     >
                         {{ (configuration$ | async)?.options.translations?.moreFilters || 'Extra filters' }}
-                        <span class="fa fa-angle-down" [ngClass]="{ 'is-toggled': optionalFiltersVisible }"></span>
+                        <aui-icon name="ai-arrow-down-1" *ngIf="!optionalFiltersVisible"></aui-icon>
+                        <aui-icon name="ai-arrow-up-1" *ngIf="optionalFiltersVisible"></aui-icon>
                     </button>
                 </div>
             </div>

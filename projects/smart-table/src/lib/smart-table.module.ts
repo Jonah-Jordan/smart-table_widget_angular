@@ -14,6 +14,7 @@ import { PROVIDE_CONFIG, PROVIDE_ID, provideLocalstorageConfig } from './indenti
 import { TableFactory } from './services/table.factory';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { IconModule } from '@acpaas-ui/ngx-icon';
 
 const defaultConfiguration: IModuleConfig = {
     storageType: 'localStorage',
@@ -23,6 +24,7 @@ const defaultConfiguration: IModuleConfig = {
 @NgModule({
     declarations: [...components],
     imports: [
+        IconModule,
         CommonModule,
         ReactiveFormsModule,
         TableModule,

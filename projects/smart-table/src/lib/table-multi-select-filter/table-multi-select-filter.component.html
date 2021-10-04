@@ -21,12 +21,12 @@
 
                     <ng-option *ngFor="let option of filter.options" [value]="option.id">{{ option.label }}</ng-option>
                 </ng-select>
-                <span class="fa fa-angle-down"></span>
+                <aui-icon name="ai-arrow-down-1"></aui-icon>
             </div>
         </div>
         <div class="a-button__right">
             <button class="a-button-transparent a-button--small a-button--danger has-icon" (click)="removeAllSelectedValues(formControl)">
-                <span class="fa fa-close" aria-hidden="true"></span>
+                <aui-icon name="ai-close" aria-hidden="true"></aui-icon>
             </button>
         </div>
         <div *ngIf="showTags">
@@ -37,7 +37,7 @@
                     aria-label="Delete"
                     (click)="removeFilterOptions(value)"
                 >
-                    <span class="fa fa-close" aria-hidden="true"></span>
+                <aui-icon name="ai-close" aria-hidden="true"></aui-icon>
                 </button>
             </div>
         </div>
