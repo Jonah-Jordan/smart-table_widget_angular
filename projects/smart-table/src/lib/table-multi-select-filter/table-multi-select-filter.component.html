@@ -21,12 +21,12 @@
 
                     <ng-option *ngFor="let option of filter.options" [value]="option.id">{{ option.label }}</ng-option>
                 </ng-select>
-                <aui-icon name="ai-arrow-down-1"></aui-icon>
+                <aui-icon name="ai-arrow-down-1" style="font-size: 1rem;" ></aui-icon>
             </div>
         </div>
         <div class="a-button__right">
             <button class="a-button-transparent a-button--small a-button--danger has-icon" (click)="removeAllSelectedValues(formControl)">
-                <aui-icon name="ai-close" aria-hidden="true"></aui-icon>
+                <aui-icon name="ai-close" style="color: red; font-size: 0.9rem; width: 18px;" aria-hidden="true" title="Verwijder geselecteerde items"></aui-icon>
             </button>
         </div>
         <div *ngIf="showTags">
