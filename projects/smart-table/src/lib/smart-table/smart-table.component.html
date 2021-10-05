@@ -88,8 +88,8 @@
                         [attr.aria-expanded]="optionalFiltersVisible"
                     >
                         {{ (configuration$ | async)?.options.translations?.moreFilters || 'Extra filters' }}
-                        <aui-icon name="ai-arrow-down-1" *ngIf="!optionalFiltersVisible"></aui-icon>
-                        <aui-icon name="ai-arrow-up-1" *ngIf="optionalFiltersVisible"></aui-icon>
+                        <aui-icon name="ai-arrow-down-1" style="font-size: 1rem;" *ngIf="!optionalFiltersVisible"></aui-icon>
+                        <aui-icon name="ai-arrow-up-1" style="font-size: 1rem;" *ngIf="optionalFiltersVisible"></aui-icon>
                     </button>
                 </div>
             </div>
