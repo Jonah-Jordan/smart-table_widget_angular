@@ -8,6 +8,7 @@ import {
 } from '../smart-table/smart-table.types';
 import {ConstructableCell, TableColumn} from '@acpaas-ui/ngx-table';
 import {DatePipe} from '@angular/common';
+import { MailToComponent } from '../mail-to/mail-to.component';
 
 @Injectable()
 export class TableFactory {
@@ -22,7 +23,8 @@ export class TableFactory {
       value: columnConfig.key,
       label: columnConfig.label,
       hidden: !(columnConfig.visible || columnConfig.visible == null),
-      disableSorting: !columnConfig.sortPath
+      disableSorting: !columnConfig.sortPath,
+      classList: columnConfig.multiline ? ['multi-line'] : ['']
     };
     if (columnConfig.visible || columnConfig.visible == null) {
       if (Array.isArray(columnConfig.classList) && columnConfig.classList.length) {
@@ -47,6 +49,12 @@ export class TableFactory {
           }
         }
       }
+    }
+    if (columnConfig.mail) {
+      column.component =  MailToComponent,
+      column.format = (value) => {
+        return { email: value};
+      };
     }
     return column;
   }
