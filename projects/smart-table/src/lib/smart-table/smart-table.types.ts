@@ -54,6 +54,8 @@ export interface SmartTableOptions {
     translations?: SmartTableTranslationsConfig;
     page?: number;
     showOptionalFilters?: boolean;
+    exportTitle?: string;
+    projectCode?: string;
 }
 
 export interface SmartTableColumnConfig {
@@ -64,6 +66,8 @@ export interface SmartTableColumnConfig {
     classList?: string[];
     sortPath: string;
     canHide: boolean;
+    multiline: boolean;
+    mail: boolean;
 }
 
 export enum SmartTableColumnType {

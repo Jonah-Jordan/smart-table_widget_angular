@@ -618,16 +618,17 @@ export class SmartTableComponent implements OnInit, OnDestroy {
 
     public exportToExcel() {
         this.pageChanging = true;
-
-        this.dataService
-            .getAllData(this.apiUrl, this.httpHeaders, this.currentQuery)
-            .pipe(
-                switchMap((data) => this.filterOutColumns(data._embedded.resourceList)),
-                tap((exportData) => this.dataService.exportAsExcelFile(exportData, 'ProjectoverzichtPMP')),
-                tap(() => (this.pageChanging = false)),
-                first()
-            )
-            .subscribe();
+        this.configuration$.subscribe( conf =>
+            this.dataService
+                .getAllData(this.apiUrl, this.httpHeaders, this.currentQuery)
+                .pipe(
+                    switchMap((data) => this.filterOutColumns(data._embedded.resourceList)),
+                    tap((exportData) => this.dataService.exportAsExcelFile(exportData,
+                        conf?.options?.projectCode ? `${conf.options.exportTitle}_${conf.options.projectCode}` : conf.options.exportTitle)),
+                    tap(() => (this.pageChanging = false)),
+                    first()
+                )
+                .subscribe());
     }
 
     public toggleSelectedColumn(value) {

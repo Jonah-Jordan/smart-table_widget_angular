@@ -143,6 +143,7 @@ app.get("/api/movies/config", (req, res) => {
       pageSize: 10,
       loadDataMessage: "De films worden geladen...",
       noDataMessage: "Er zijn geen films die voldoen aan de criteria",
+      exportTitle: "Filmexport"
     },
   });
 });
