@@ -1,0 +1,6 @@
+<div *ngIf="filter" class="row u-margin-top u-margin-left">
+    <div class="a-input__checkbox">
+        <input type="checkbox" [id]="id" [formControl]="formControl"/>
+        <label [for]="id">{{filter.label}}</label>
+    </div>
+</div>
