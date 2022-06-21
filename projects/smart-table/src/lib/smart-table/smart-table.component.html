@@ -68,6 +68,16 @@
                     </aui-table-select-filter>
                 </ng-container>
 
+                <ng-container *ngSwitchCase="'multi-select'">
+                    <aui-table-multi-select-filter
+                        class="aui-smart-table__filter"
+                        [filter]="filter"
+                        [optional]="true"
+                        (update)="onFilter($event)"
+                        [showTags]="showTags"
+                    ></aui-table-multi-select-filter>
+                </ng-container>
+
                 <ng-container *ngSwitchCase="'input'">
                     <aui-table-input-filter class="aui-smart-table__filter" [filter]="filter" (update)="onFilter($event)">
                     </aui-table-input-filter>
@@ -76,6 +86,11 @@
                 <ng-container *ngSwitchCase="'datepicker'">
                     <aui-table-datepicker-filter class="aui-smart-table__filter" [filter]="filter" (update)="onFilter($event)">
                     </aui-table-datepicker-filter>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'checkbox'">
+                    <aui-table-checkbox-filter class="aui-smart-table__filter" [filter]="filter" (update)="onFilter($event)"
+                    ></aui-table-checkbox-filter>
                 </ng-container>
             </ng-container>
 
@@ -139,6 +154,11 @@
                         [optional]="true"
                         (update)="onFilter($event)"
                     ></aui-table-datepicker-filter>
+                </ng-container>
+                
+                <ng-container *ngSwitchCase="'checkbox'">
+                    <aui-table-checkbox-filter class="aui-smart-table__filter" [filter]="filter" (update)="onFilter($event)"
+                    ></aui-table-checkbox-filter>
                 </ng-container>
             </ng-container>
         </div>
