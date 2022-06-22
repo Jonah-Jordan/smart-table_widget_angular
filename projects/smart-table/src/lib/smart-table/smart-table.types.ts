@@ -1,5 +1,5 @@
 import { Filter } from '@acpaas-ui/ngx-utils';
-import { OrderBy, TableColumnFormat } from '@acpaas-ui/ngx-table';
+import { ConstructableCell, OrderBy, TableColumnFormat } from '@acpaas-ui/ngx-table';
 import { Component } from '@angular/core';
 import { LocalStorageType } from '@acpaas-ui/ngx-localstorage';
 
@@ -66,7 +66,6 @@ export interface SmartTableColumnConfig {
     classList?: string[];
     sortPath: string;
     canHide: boolean;
-    multiline: boolean;
     mail: boolean;
 }
 
@@ -80,7 +79,8 @@ export enum SmartTableColumnType {
 export interface SmartTableColumnCustomType {
     name: string;
     format?: TableColumnFormat;
-    component?: Component;
+    component?: ConstructableCell;
+    classList?: string[];
 }
 
 export enum SmartTableFilterType {
