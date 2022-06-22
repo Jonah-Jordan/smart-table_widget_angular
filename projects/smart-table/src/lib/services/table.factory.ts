@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
+import { TableColumn } from '@acpaas-ui/ngx-table';
+import { DatePipe } from '@angular/common';
+import { Injectable } from '@angular/core';
+
+import { MailToComponent } from '../mail-to/mail-to.component';
 import {
   SmartTableColumnConfig,
   SmartTableColumnCustomType,
   SmartTableColumnType,
   SmartTableFilter,
-  SmartTableFilterConfig
+  SmartTableFilterConfig,
 } from '../smart-table/smart-table.types';
-import {ConstructableCell, TableColumn} from '@acpaas-ui/ngx-table';
-import {DatePipe} from '@angular/common';
-import { MailToComponent } from '../mail-to/mail-to.component';
 
 @Injectable()
 export class TableFactory {
@@ -24,7 +25,6 @@ export class TableFactory {
       label: columnConfig.label,
       hidden: !(columnConfig.visible || columnConfig.visible == null),
       disableSorting: !columnConfig.sortPath,
-      classList: columnConfig.multiline ? ['multi-line'] : ['']
     };
     if (columnConfig.visible || columnConfig.visible == null) {
       if (Array.isArray(columnConfig.classList) && columnConfig.classList.length) {
@@ -33,8 +33,9 @@ export class TableFactory {
 
       const columnType = columnTypes.find(ct => ct.name === columnConfig.type);
       if (columnType) {
-        column.format = columnType.format;
-        // column.component = columnType.component;
+        if (columnType.format) { column.format = columnType.format; }
+        if (columnType.component) { column.component = columnType.component; }
+        column.classList = columnType.classList ? columnType.classList : [''];
       } else {
         switch (columnConfig.type) {
           case SmartTableColumnType.DateTime: {
