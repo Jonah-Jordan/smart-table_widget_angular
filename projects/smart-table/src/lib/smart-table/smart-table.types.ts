@@ -2,6 +2,7 @@ import { Filter } from '@acpaas-ui/ngx-utils';
 import { ConstructableCell, OrderBy, TableColumnFormat } from '@acpaas-ui/ngx-table';
 import { Component } from '@angular/core';
 import { LocalStorageType } from '@acpaas-ui/ngx-localstorage';
+import { TableColumnClass } from '@acpaas-ui/ngx-table/lib/types/table.types';
 
 export interface IModuleConfig {
     storageType?: LocalStorageType;
@@ -81,6 +82,7 @@ export interface SmartTableColumnCustomType {
     format?: TableColumnFormat;
     component?: ConstructableCell;
     classList?: string[];
+    columnClass?: TableColumnClass;
 }
 
 export enum SmartTableFilterType {

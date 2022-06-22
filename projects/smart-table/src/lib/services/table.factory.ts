@@ -35,6 +35,7 @@ export class TableFactory {
       if (columnType) {
         if (columnType.format) { column.format = columnType.format; }
         if (columnType.component) { column.component = columnType.component; }
+        if (columnType.columnClass) { column.columnClass = columnType.columnClass; }
         column.classList = columnType.classList ? columnType.classList : [''];
       } else {
         switch (columnConfig.type) {
