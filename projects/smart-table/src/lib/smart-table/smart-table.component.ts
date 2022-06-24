@@ -3,7 +3,7 @@ import { LocalstorageService } from '@acpaas-ui/ngx-localstorage';
 import { OrderBy, TableColumn } from '@acpaas-ui/ngx-table';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { BehaviorSubject, combineLatest, concat, merge, Observable, of, Subject } from 'rxjs';
 import { auditTime, catchError, filter, first, map, shareReplay, skip, startWith, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { PROVIDE_ID } from '../indentifier.provider';
@@ -29,11 +29,12 @@ import {
     styleUrls: ['./smart-table.component.scss'],
     templateUrl: './smart-table.component.html'
 })
-export class SmartTableComponent implements OnInit, OnDestroy {
+export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
     @Input() apiUrl: string;
     @Input() httpHeaders: HttpHeaders;
     @Input() columnTypes: SmartTableColumnCustomType[] = [];
     @Input() showTags: boolean;
+    @Input() refreshQuery: boolean;
 
     @Input()
     set configuration(value: SmartTableConfig) {
@@ -87,6 +88,8 @@ export class SmartTableComponent implements OnInit, OnDestroy {
 
     public persistInStorage$: Observable<SmartTableColumnConfig[]>;
 
+    public refresh$ = new Subject<void>();
+
     public onFilter$ = new Subject<UpdateFilterArgs>();
 
     private destroy$ = new Subject();
@@ -127,6 +130,14 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     ) {
         this.rowsLoading = true;
         this.pageChanging = false;
+    }
+    ngOnChanges(changes: SimpleChanges): void {
+        if (
+            changes.refreshQuery &&
+            changes.refreshQuery.previousValue !== changes.refreshQuery.currentValue
+        ) {
+            this.refresh$.next();
+        }
     }
 
     ngOnInit(): void {
@@ -335,9 +346,9 @@ export class SmartTableComponent implements OnInit, OnDestroy {
             this.genericFilter$,
             this.configuration$,
             this.orderBy$,
-            this.cleanOptionalFilters$
+            this.cleanOptionalFilters$,
+            this.refresh$
         ).pipe(
-            skip(5), // The values are shared replayed, so skip the 5 initial emits of the observables
             map(
                 ([visibleFilters, optionalFilters, genericFilter, configuration, orderBy, cleanFilters]: [
                     SmartTableFilter[],
@@ -618,17 +629,24 @@ export class SmartTableComponent implements OnInit, OnDestroy {
 
     public exportToExcel() {
         this.pageChanging = true;
-        this.configuration$.subscribe( conf =>
+        this.configuration$.subscribe((conf) =>
             this.dataService
                 .getAllData(this.apiUrl, this.httpHeaders, this.currentQuery)
                 .pipe(
                     switchMap((data) => this.filterOutColumns(data._embedded.resourceList)),
-                    tap((exportData) => this.dataService.exportAsExcelFile(exportData,
-                        conf?.options?.projectCode ? `${conf.options.exportTitle}_${conf.options.projectCode}` : conf.options.exportTitle)),
+                    tap((exportData) =>
+                        this.dataService.exportAsExcelFile(
+                            exportData,
+                            conf?.options?.projectCode
+                                ? `${conf.options.exportTitle}_${conf.options.projectCode}`
+                                : conf.options.exportTitle
+                        )
+                    ),
                     tap(() => (this.pageChanging = false)),
                     first()
                 )
-                .subscribe());
+                .subscribe()
+        );
     }
 
     public toggleSelectedColumn(value) {

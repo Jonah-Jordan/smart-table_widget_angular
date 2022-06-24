@@ -9,7 +9,7 @@
                         [attr.aria-label]="(configuration$ | async)?.options.translations?.export || 'Exporteer'"
                         [title]="(configuration$ | async)?.options.translations?.export || 'Exporteer'"
                     >
-                    <aui-icon name="ai-common-file-text"></aui-icon>
+                        <aui-icon name="ai-common-file-text"></aui-icon>
                     </button>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                             [title]="(configuration$ | async)?.options.translations?.openColumnSelector || 'Toon/verberg kolommen'"
                             auiFlyoutAction
                         >
-                        <aui-icon name="ai-layout-column"></aui-icon>
+                            <aui-icon name="ai-layout-column"></aui-icon>
                         </button>
 
                         <div auiFlyoutZone>
@@ -89,7 +89,10 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'checkbox'">
-                    <aui-table-checkbox-filter class="aui-smart-table__filter" [filter]="filter" (update)="onFilter($event)"
+                    <aui-table-checkbox-filter
+                        class="aui-smart-table__filter u-margin-bottom u-margin-left"
+                        [filter]="filter"
+                        (update)="onFilter($event)"
                     ></aui-table-checkbox-filter>
                 </ng-container>
             </ng-container>
@@ -155,9 +158,12 @@
                         (update)="onFilter($event)"
                     ></aui-table-datepicker-filter>
                 </ng-container>
-                
+
                 <ng-container *ngSwitchCase="'checkbox'">
-                    <aui-table-checkbox-filter class="aui-smart-table__filter" [filter]="filter" (update)="onFilter($event)"
+                    <aui-table-checkbox-filter
+                        class="aui-smart-table__filter"
+                        [filter]="filter"
+                        (update)="onFilter($event)"
                     ></aui-table-checkbox-filter>
                 </ng-container>
             </ng-container>
