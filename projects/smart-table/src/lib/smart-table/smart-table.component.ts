@@ -133,9 +133,10 @@ export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.refreshQuery) {
+        if (changes.refreshQuery?.currentValue) {
             this.refresh$.next(null);
         }
+        this.refreshQuery = false;
     }
 
     ngOnInit(): void {
