@@ -88,7 +88,7 @@ export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
 
     public persistInStorage$: Observable<SmartTableColumnConfig[]>;
 
-    public refresh$ = new Subject<void>();
+    refresh$ = new BehaviorSubject<void>(null);
 
     public onFilter$ = new Subject<UpdateFilterArgs>();
 
@@ -131,12 +131,10 @@ export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
         this.rowsLoading = true;
         this.pageChanging = false;
     }
+
     ngOnChanges(changes: SimpleChanges): void {
-        if (
-            changes.refreshQuery &&
-            changes.refreshQuery.previousValue !== changes.refreshQuery.currentValue
-        ) {
-            this.refresh$.next();
+        if (changes.refreshQuery) {
+            this.refresh$.next(null);
         }
     }
 
@@ -356,7 +354,7 @@ export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
                     SmartTableFilter,
                     SmartTableConfig,
                     OrderBy,
-                    boolean
+                    boolean,
                 ]) => {
                     if (!this.optionalFiltersVisible) {
                         optionalFilters.forEach((f) => (f.value = undefined));
