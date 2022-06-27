@@ -8,7 +8,6 @@ import { SmartTableConfig } from 'projects/smart-table/src/lib/smart-table/smart
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  refresh = false;
   title = 'example';
 
   moviesCustomColumns = [
