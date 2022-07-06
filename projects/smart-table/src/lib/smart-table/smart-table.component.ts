@@ -44,6 +44,9 @@ export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
     /** fires when the user selects a row */
     @Output() rowClicked = new EventEmitter<any>();
 
+    /** fire when applying hiding/showing certain columns */
+    @Output() columnConfig: EventEmitter<SmartTableColumnConfig[]> = new EventEmitter<SmartTableColumnConfig[]>();
+
     /** @internal */
     genericFilter$: Observable<SmartTableFilter>;
     /** @internal */
@@ -595,6 +598,9 @@ export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
 
     public onColumnsSelected() {
         this.toggleHideColumn$.next();
+        this.configuration$
+            .pipe(take(1))
+            .subscribe((tableConfig: SmartTableConfig) => this.columnConfig.emit(tableConfig.columns));
     }
 
     public onClickRow(row) {
