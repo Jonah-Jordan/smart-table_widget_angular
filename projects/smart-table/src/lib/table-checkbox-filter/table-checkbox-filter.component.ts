@@ -12,6 +12,6 @@ export class TableCheckboxFilterComponent extends AbstractFilter implements OnIn
     }
 
     public ngOnInit(): void {
-        this.formControl.setValue(true);
+        this.formControl.setValue(this.filter.checked);
     }
 }

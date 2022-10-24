@@ -90,6 +90,14 @@ app.get("/api/movies/config", (req, res) => {
         fields: ["movie_title", "director_name", "title_year"],
       },
       {
+        id: "archived",
+        display: "visible",
+        type: "checkbox",
+        label: "Toon gearchiveerde projecten",
+        field: "Archived",
+        checked: false,
+      },
+      {
         id: "title",
         display: "optional",
         type: "input",

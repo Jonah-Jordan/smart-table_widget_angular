@@ -75,6 +75,7 @@ export class TableFactory {
         _filter.placeholder = filterConfig.placeholder;
         _filter.options = filterConfig.options;
         _filter.value = filterConfig.value;
+        _filter.checked = filterConfig.checked;
         return _filter;
     }
 }

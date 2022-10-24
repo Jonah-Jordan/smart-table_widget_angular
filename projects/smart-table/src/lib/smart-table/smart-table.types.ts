@@ -113,6 +113,7 @@ export interface SmartTableFilterConfig {
     options?: any[]; // Currently applies only to filters of type 'Select'
     placeholder?: string;
     value: string | any[]; // See ACPaaS Filter class
+    checked?: boolean  ;
 }
 
 export class SmartTableFilter extends Filter {
@@ -122,6 +123,7 @@ export class SmartTableFilter extends Filter {
     label: string;
     placeholder?: string;
     disabled: boolean;
+    checked?: boolean = false;
 }
 
 export interface UpdateFilterArgs {
