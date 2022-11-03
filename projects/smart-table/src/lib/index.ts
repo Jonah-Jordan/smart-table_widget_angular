@@ -1,3 +1,4 @@
+import { HyperlinkComponent } from './hyperlink/hyperlink.component';
 import { MailToComponent } from './mail-to/mail-to.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
 import { SmartTableService } from './smart-table/smart-table.service';
@@ -14,6 +15,7 @@ export const components = [
     TableDatepickerFilterComponent,
     TableMultiSelectFilterComponent,
     MailToComponent,
+    HyperlinkComponent,
     TableCheckboxFilterComponent
 ];
 

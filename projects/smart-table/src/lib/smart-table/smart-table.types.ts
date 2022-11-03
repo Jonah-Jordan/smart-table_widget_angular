@@ -57,6 +57,7 @@ export interface SmartTableOptions {
     showOptionalFilters?: boolean;
     exportTitle?: string;
     projectCode?: string;
+    prefixUrl?: string;
 }
 
 export interface SmartTableColumnConfig {
@@ -68,6 +69,7 @@ export interface SmartTableColumnConfig {
     sortPath: string;
     canHide: boolean;
     mail: boolean;
+    hyperlink: string;
 }
 
 export enum SmartTableColumnType {

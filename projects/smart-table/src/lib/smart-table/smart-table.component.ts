@@ -191,8 +191,8 @@ export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
         this.allColumns$ = this.configuration$.pipe(
             tap((config) => this.resetOrderBy(config && config.options && config.options.defaultSortOrder)),
             map((config: SmartTableConfig) =>
-                config.columns.map((c) =>
-                    this.factory.createTableColumnFromConfig(c, this.columnTypes, SMARTTABLE_DEFAULT_OPTIONS.columnDateFormat)
+                config.columns.map((c) => 
+                    this.factory.createTableColumnFromConfig(c, this.columnTypes, SMARTTABLE_DEFAULT_OPTIONS.columnDateFormat, config.options.prefixUrl)
                 )
             ),
             startWith([]),

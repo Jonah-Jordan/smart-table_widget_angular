@@ -1,6 +1,7 @@
 import { TableColumn } from '@acpaas-ui/ngx-table';
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { HyperlinkComponent } from '../hyperlink/hyperlink.component';
 
 import { MailToComponent } from '../mail-to/mail-to.component';
 import {
@@ -13,12 +14,13 @@ import {
 
 @Injectable()
 export class TableFactory {
-    constructor(private datePipe: DatePipe) {}
+    constructor(private datePipe: DatePipe) { }
 
     createTableColumnFromConfig(
         columnConfig: SmartTableColumnConfig,
         columnTypes: SmartTableColumnCustomType[],
-        format?: string
+        format?: string,
+        prefixUrl?: string,
     ): TableColumn {
         const column: TableColumn = {
             value: columnConfig.key,
@@ -59,7 +61,18 @@ export class TableFactory {
         if (columnConfig.mail) {
             (column.component = MailToComponent),
                 (column.format = (value) => {
-                    return { email: value };
+                    return {
+                        email: value
+                    };
+                });
+        }
+        if (columnConfig.hyperlink) {
+            (column.component = HyperlinkComponent),
+                (column.format = (value) => {
+                    return {
+                        value: value,
+                        prefix: prefixUrl
+                    };
                 });
         }
         return column;

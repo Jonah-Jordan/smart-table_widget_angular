@@ -59,6 +59,7 @@ app.get("/api/movies/config", (req, res) => {
         key: "movie_title",
         type: "text",
         sortPath: "movie_title",
+        hyperlink: "true",
         canHide: false,
       },
       {
@@ -151,7 +152,8 @@ app.get("/api/movies/config", (req, res) => {
       pageSize: 10,
       loadDataMessage: "De films worden geladen...",
       noDataMessage: "Er zijn geen films die voldoen aan de criteria",
-      exportTitle: "Filmexport"
+      exportTitle: "Filmexport",
+      prefixUrl: 'https://www.imdb.com/find?q=',
     },
   });
 });
@@ -183,8 +185,8 @@ function getDataFromRequest(req) {
           filter.value && filter.value.id
             ? filter.value.id
             : filter.value
-                .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
-                .replace(/[%*]/g, ".*");
+              .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
+              .replace(/[%*]/g, ".*");
         const pattern = new RegExp(matchOn, "i");
         response = response.filter((value) => {
           let include = false;
