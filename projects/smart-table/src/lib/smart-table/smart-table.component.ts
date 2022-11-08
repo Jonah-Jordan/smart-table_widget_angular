@@ -191,7 +191,7 @@ export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
         this.allColumns$ = this.configuration$.pipe(
             tap((config) => this.resetOrderBy(config && config.options && config.options.defaultSortOrder)),
             map((config: SmartTableConfig) =>
-                config.columns.map((c) => 
+                config.columns.map((c) =>
                     this.factory.createTableColumnFromConfig(c, this.columnTypes, SMARTTABLE_DEFAULT_OPTIONS.columnDateFormat, config.options.prefixUrl)
                 )
             ),
@@ -398,7 +398,7 @@ export class SmartTableComponent implements OnInit, OnChanges, OnDestroy {
         // Get the data on the bases of the data query
         // or when we change the pagination
         this.rows$ = combineLatest(this.dataQuery$, this.pageSize$, this.currentPage$).pipe(
-            auditTime(250), // Skip initial time based values, don't reset the timer after new values come in
+            auditTime(350), // Skip initial time based values, don't reset the timer after new values come in
             tap(() => (this.pageChanging = !this.rowsLoading)),
             switchMap(([dataQuery, pageSize, page]) => this.dataService.getData(this.apiUrl, this.httpHeaders, dataQuery, page, pageSize)),
             filter((data) => !!data),
