@@ -111,7 +111,6 @@
       }
     }
   },
-  "defaultProject": "smart-table",
   "schematics": {
     "@schematics/angular:component": {
       "style": "scss"
