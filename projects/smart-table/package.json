@@ -20,6 +20,7 @@
         "file-saver": "^2.0.2",
         "lodash.unionby": "^4.8.0",
         "query-string": "^6.8.3",
+        "tslib": "^2.0.0",
         "xlsx": "^0.15.1"
     },
     "publishConfig": {
