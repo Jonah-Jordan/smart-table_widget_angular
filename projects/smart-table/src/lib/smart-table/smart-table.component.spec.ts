@@ -91,13 +91,13 @@ describe('Smart Table Test', () => {
       }
     ] as any;
 
-    storageService = TestBed.get(LocalstorageService);
-    factory = TestBed.get(TableFactory);
+    storageService = TestBed.inject(LocalstorageService);
+    factory = TestBed.inject(TableFactory);
     sandbox.stub(storageService, 'storage').value({
       getItem: sinon.stub(),
       setItem: sinon.stub()
     });
-    service = TestBed.get(SmartTableService);
+    service = TestBed.inject(SmartTableService);
     (service.getData as SinonStub).returns(cold('a'));
   });
 
