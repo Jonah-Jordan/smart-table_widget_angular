@@ -3,6 +3,7 @@
  */
 
 export * from './lib/mail-to/mail-to.component';
+export * from './lib/hyperlink/hyperlink.component';
 export * from './lib/services/table.factory';
 export * from './lib/smart-table.module';
 export * from './lib/smart-table/smart-table.component';
