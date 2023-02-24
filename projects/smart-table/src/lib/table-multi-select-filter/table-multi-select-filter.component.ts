@@ -11,7 +11,7 @@ import { AbstractFilter } from '../filter/abstract-filter';
 export class TableMultiSelectFilterComponent extends AbstractFilter implements OnInit, AfterViewInit, FilterComponent {
     @Input() public showTags: boolean;
     public totalSelected = 0;
-    private selectedLabel: string;
+    public selectedLabel: string;
     private searchField: string;
 
     constructor(private cdRef: ChangeDetectorRef) {
