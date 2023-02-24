@@ -11,12 +11,18 @@ import { AbstractFilter } from '../filter/abstract-filter';
 export class TableMultiSelectFilterComponent extends AbstractFilter implements OnInit, AfterViewInit, FilterComponent {
     @Input() public showTags: boolean;
     public totalSelected = 0;
+    private selectedLabel: string;
+    private searchField: string;
 
     constructor(private cdRef: ChangeDetectorRef) {
         super();
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        if (this.filter?.value) {
+            this.resetLabel();
+        }
+    }
 
     ngAfterViewInit(): void {
         try {
@@ -46,6 +52,32 @@ export class TableMultiSelectFilterComponent extends AbstractFilter implements O
 
     searchCorrectLabel(value: string): string {
         return this.filter.options.find((o) => o.id === value).label;
+    }
+
+    // eslint:disable-next-line: variable-name
+    public _onSearched(searchValue: any): void {
+        this.searchField = searchValue.term;
+        if (this.searchField) {
+            this.selectedLabel = '';
+        } else {
+            this.resetLabel();
+        }
+    }
+    // eslint:disable-next-line: variable-name
+    public _onClosed(): void {
+        this.searchField = '';
+        this.resetLabel();
+    }
+
+    public override onFilter(value) {
+        super.onFilter(value);
+        if (!this.searchField) {
+            this.resetLabel();
+        }
+    }
+
+    private resetLabel(): void {
+        this.selectedLabel = this.filter?.value.length + ' geselecteerd';
     }
 
     public removeAllSelectedValues(filter: FormControl): void {

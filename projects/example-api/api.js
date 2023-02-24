@@ -111,6 +111,7 @@ app.get("/api/movies/config", (req, res) => {
         type: "input",
         label: "Regisseur",
         field: "director_name",
+        placeholder: "Selecteer een regisseur",
       },
       {
         id: "genre",
@@ -125,6 +126,7 @@ app.get("/api/movies/config", (req, res) => {
         id: "director-select",
         display: "optional",
         type: "multi-select",
+        placeholder: "Selecteer een regisseur",
         options: [
           {
             id: "Zack Snyder",

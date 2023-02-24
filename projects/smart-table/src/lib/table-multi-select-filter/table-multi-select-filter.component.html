@@ -5,19 +5,20 @@
             <div class="a-input__wrapper a-input--filter">
                 <ng-select
                     class="u-margin-bottom-xs"
-                    (add)="totalSelected = totalSelected + 1"
-                    (remove)="totalSelected = totalSelected - 1"
+                    (search)="_onSearched($event)"
+                    (close)="_onClosed()"
                     [id]="id"
                     [multiple]="true"
                     [formControl]="formControl"
                     [closeOnSelect]="false"
-                    placeholder="0 geselecteerd"
+                    [clearable]="false"
+                    [placeholder]="filter?.placeholder"
                     #selectDropdown
                     ngDefaultControl
                 >
-                    <ng-template ng-multi-label-tmp>
-                        <span style="display: block" class="ng-placeholder">{{ totalSelected }} geselecteerd</span></ng-template
-                    >
+                <ng-template ng-multi-label-tmp>
+                    <span style="display: block" class="ng-placeholder">{{ selectedLabel }}</span>
+                </ng-template>
 
                     <ng-option *ngFor="let option of filter.options" [value]="option.id">{{ option.label }}</ng-option>
                 </ng-select>
