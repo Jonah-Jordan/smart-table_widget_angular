@@ -24,7 +24,6 @@ export class TableFactory {
       hidden: !(columnConfig.visible || columnConfig.visible == null),
       disableSorting: !columnConfig.sortPath
     };
-    if (columnConfig.visible || columnConfig.visible == null) {
       if (Array.isArray(columnConfig.classList) && columnConfig.classList.length) {
         column.classList = columnConfig.classList;
       }
@@ -46,7 +45,6 @@ export class TableFactory {
             break;
           }
         }
-      }
     }
     return column;
   }

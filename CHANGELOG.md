@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+## [1.5.7] - 2024-05-27
+
+### Fixed
+- Fixed bug when page is loaded with column set to not visible, the formatting wasn't initialised. 
+  Making it so when you set the col to visible, the formatting won't show (stars on rating in example proj)
+
 ## [1.5.6] - 2020-07-06
 
 ### Fixed
