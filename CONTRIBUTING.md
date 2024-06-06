@@ -69,13 +69,17 @@ Follow these steps to publish a new version of the package.
 You must be a member of the @acpaas-ui-widgets organization on GitHub.
 
 1. Increment the version in projects/smart-table/package.json
-2. Log in to the npmjs registry
+3. Build the application
+    ```sh
+    > npm run build
+    ```
+4. Log in to the npmjs registry
 
     ```sh
     > npm login
     ```
 
-3. Publish the package
+5. Publish the package
 
     ```sh
     > npm publish dist/smart-table
